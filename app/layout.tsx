@@ -1,5 +1,6 @@
 import React from "react";
 import "thon-ui/core/base.css";
+import "@/shared/css/global.css"
 import '@/homepage/css/homepage.css';
 import MainFooter from "@/shared/components/main-footer";
 import MainHeader from "@/shared/components/main-header";

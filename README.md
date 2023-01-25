@@ -40,3 +40,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 # TUTORIAL PROJETO
 https://www.youtube.com/watch?v=oxgZuLB-3yI
+
+https://youtu.be/SKJhmUpfKOc?t=1743
