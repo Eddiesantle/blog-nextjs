@@ -63,7 +63,7 @@ export default async function Home() {
         before:bg-linear-bottom-white`}
       >
         <Markdown
-          value={lastPost.body}
+          value={lastPost.body || ''}
           className="h-[59vh] overflow-hidden mb-6"
         />
       </div>
