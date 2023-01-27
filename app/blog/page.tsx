@@ -1,8 +1,34 @@
 import PostsListItem from "@/domains/posts/components/posts-list-item";
-import Link from "next/link";
+import { Post } from "@/domains/posts/models/post";
 import { Text } from "thon-ui";
 
-export default function BolgPage() {
+const baseURL = "https://www.tabnews.com.br/api/v1";
+const postsEndPoint = "/contents/guscsales";
+
+async function fetchPosts() {
+  const postsResponde = await fetch(`${baseURL}${postsEndPoint}`);
+  let posts = (await postsResponde.json()) as Post[];
+
+  posts = posts
+    .filter((post) => !post["parent_id"])
+    .map((post) => ({
+      ...post,
+      created_at: new Date(post.created_at),
+    }));
+
+  posts.sort(
+    (a, b) =>
+      (b.created_at as unknown as number) - (a.created_at as unknown as number)
+  );
+
+  return posts ? posts : [];
+}
+
+export default async function BlogPage() {
+  const posts = await fetchPosts();
+
+  console.log(posts);
+
   return (
     <article>
       <header>
@@ -10,31 +36,28 @@ export default function BolgPage() {
           Blog
         </Text>
       </header>
-      <ul aria-label="Posts" className="grid gap-6 w-full lg:w-[41.375rem]">
-        <PostsListItem
-          post={{
-            slug: "any-slug",
-            title: "Uma boa maneira de organizar",
-            created_at: new Date(2022, 10, 24),
-          }}
-          isLarge
-          headerComplement="- Última postagem..."
-        />
-        <PostsListItem
-          post={{
-            slug: "any-slug-2",
-            title: "Uma boa maneira de organizar",
-            created_at: new Date(2022, 10, 24),
-          }}
-        />
-        <PostsListItem
-          post={{
-            slug: "any-slug-3",
-            title: "Uma boa maneira de organizar",
-            created_at: new Date(2022, 10, 24),
-          }}
-        />
-      </ul>
+
+      {posts.length > 0 && (
+
+        <ul aria-label="Posts" className="grid gap-6 w-full lg:w-[41.375rem]">
+          {posts.map((post, index) => (
+            <li key={post.slug}>
+              <PostsListItem
+                post={post}
+                isLarge={index === 0}
+                headerComplement={
+                  index === 0 ? "- Última postagem..." : undefined
+                }
+              />
+            </li>
+          ))}
+        </ul>
+
+      )}
+
+      {posts.length === 0 && (
+        <Text variant="xl">Nenhum post encontrado</Text>
+      )}
     </article>
   );
 }

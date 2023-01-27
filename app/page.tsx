@@ -12,7 +12,7 @@ async function getLastPost() {
   let posts = (await postsResponse.json()) as Post[];
 
   posts = posts
-    .filter((post) => !post['parent_id'])
+    .filter((post) => !post["parent_id"])
     .map((post) => ({
       ...post,
       created_at: new Date(post.created_at),
@@ -53,7 +53,7 @@ export default async function Home() {
       <Text variant="sm" className="text-gray-500">
         {format(lastPost?.created_at, "dd.MM.yyyy")} - Útima Postagem...
       </Text>
-      <Text as="h1" variant="3xl" className="w-full lg:w-[35rem] mt-2 mb-12">
+      <Text as="h1" variant="2xl lg:3xl" className="w-full lg:w-[35rem] mt-2 mb-12">
         {lastPost.title}
       </Text>
 
@@ -63,23 +63,27 @@ export default async function Home() {
         before:bg-linear-bottom-white`}
       >
         <Markdown
-          value={lastPost.body || ''}
+          value={lastPost.body || ""}
           className="h-[59vh] overflow-hidden mb-6"
         />
       </div>
 
       <div className="flex items-center justify-end mt-9 mb-4">
-        <Link
-          href="/blog"
-          className="py-2 px-3"
-        >
-          <Text variant='xs' className="text-blue-400 hover:text-blue-600 transiton-all duratiom-200 ease-in-out">Ver outros Posts</Text>
+        <Link href="/blog" className="py-2 px-3">
+          <Text
+            variant="xs"
+            className="text-blue-400 hover:text-blue-600 transiton-all duratiom-200 ease-in-out"
+          >
+            Ver outros Posts
+          </Text>
         </Link>
         <Link
           href={`/blog/${lastPost.slug}`}
           className="py-2 px-3 bg-gray-100 hover:bg-gray-200 transiton-all duratiom-200 ease-in-out rounded"
         >
-          <Text variant='xs'className="font-bold text-gray-800">Continuar Lendo</Text>
+          <Text variant="xs" className="font-bold text-gray-800">
+            Continuar Lendo
+          </Text>
         </Link>
       </div>
     </article>

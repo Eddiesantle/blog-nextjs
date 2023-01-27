@@ -17,7 +17,6 @@ export default function PostsListItem({
   isLarge,
 }: Props) {
   return (
-    <li>
       <Link
         href={`/blog/${post.slug}`}
         className={classNames("flex flex-col gap-2", {
@@ -37,6 +36,5 @@ export default function PostsListItem({
           {post.title}
         </Text>
       </Link>
-    </li>
   );
 }
