@@ -5,9 +5,10 @@ import minhaImagem from "./assets/Face-perfil.png";
 export default function MainHeader() {
   return (
     <header
-      className={`lg:h-screen
-      pt-8 pb-6 px-7 lg:pt-0 lg:pb-0
-    flex flex-col justify-center items-center  
+      className={`lg:h-screen relative lg:fixed lg:w-[34.25rem]
+      left-0 top-0
+      pt-8  pb-6 px-7 lg:pb-0 lg:pt-0
+    flex flex-col items-center justify-center
     bg-gray-100`}
     >
       <div className="flex items-center gap-3">
