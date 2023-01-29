@@ -2,11 +2,11 @@ import PostsListItem from "@/domains/posts/components/posts-list-item";
 import { Post } from "@/domains/posts/models/post";
 import { Text } from "thon-ui";
 
-const baseURL = "https://www.tabnews.com.br/api/v1";
-const postsEndPoint = "/contents/guscsales";
+
+const postsEndPoint = "/contents/eddiesantle";
 
 async function fetchPosts() {
-  const postsResponde = await fetch(`${baseURL}${postsEndPoint}`);
+  const postsResponde = await fetch(`${process.env.BLOG_PROVIDER_BASE_API}${postsEndPoint}`);
   let posts = (await postsResponde.json()) as Post[];
 
   posts = posts

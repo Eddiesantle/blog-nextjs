@@ -1,5 +1,6 @@
-import PostDetails from "@/domains/posts/components/post-detail";
-import { Post } from "@/domains/posts/models/post";
+import PostDetailComponent from "@/domains/posts/components/post-detail-component";
+import { PostDetail } from "@/domains/posts/models/post-detail";
+import { Text } from "thon-ui";
 
 type Props = {
   params: {
@@ -7,19 +8,36 @@ type Props = {
   };
 };
 
+const postsEndPoint = "/contents/eddiesantle";
 
+async function getPost(slug:string) {
 
-export default function BlogPostsDetailsPage({ params }: Props) {
+  const postResponse = await fetch(`${process.env.BLOG_PROVIDER_BASE_API}${postsEndPoint}/${slug}`);
+
+  const post = (await postResponse.json()) as PostDetail;
+
+  if(!post){
+    return null
+  }
+
+  post.created_at = new Date(post.created_at)
+
+  return post;
+  
+}
+
+export default async function BlogPostsDetailsPage({ params }: Props) {
   const { slug } = params;
 
+  const post = await getPost(slug)
+
+  console.log(post)
+
+
   console.log(params);
-  return (
-    <PostDetails
-      post={{
-        slug: "any-slug",
-        title: "Uma boa maneira de organizar",
-        created_at: new Date(2022, 10, 24),
-      }}
+  return post ? (
+    <PostDetailComponent
+      post={post}
     />
-  );
+  ) : <Text variant="xl">Poste não encontrado</Text>;
 }

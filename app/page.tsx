@@ -3,12 +3,13 @@ import { Post } from "@/domains/posts/models/post";
 import { format } from "date-fns";
 import Markdown from "@/shared/components/markdown";
 import Link from "next/link";
+import { PostDetail } from "@/domains/posts/models/post-detail";
 
-const baseURL = "https://www.tabnews.com.br/api/v1";
-const postsEndPoint = "/contents/guscsales";
+
+const postsEndPoint = "/contents/eddiesantle";
 
 async function getLastPost() {
-  const postsResponse = await fetch(`${baseURL}${postsEndPoint}`);
+  const postsResponse = await fetch(`${process.env.BLOG_PROVIDER_BASE_API}${postsEndPoint}`);
   let posts = (await postsResponse.json()) as Post[];
 
   posts = posts
@@ -27,9 +28,9 @@ async function getLastPost() {
   const [lastPostFromList] = posts;
 
   const lastPostResponse = await fetch(
-    `${baseURL}${postsEndPoint}/${lastPostFromList.slug}`
+    `${process.env.BLOG_PROVIDER_BASE_API}${postsEndPoint}/${lastPostFromList.slug}`
   );
-  const lastPost = (await lastPostResponse.json()) as Post;
+  const lastPost = (await lastPostResponse.json()) as PostDetail;
 
   if (lastPost) {
     return {
@@ -63,7 +64,7 @@ export default async function Home() {
         before:bg-linear-bottom-white`}
       >
         <Markdown
-          value={lastPost.body || ""}
+          value={lastPost.body}
           className="h-[59vh] overflow-hidden mb-6"
         />
       </div>
