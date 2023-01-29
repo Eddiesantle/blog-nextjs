@@ -1,6 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 import { Text } from "thon-ui";
 import minhaImagem from "./assets/Face-perfil.png";
+
+function NavigatorItem({href, children}: {href: string, children: React.ReactNode}){
+  return <Link href={href} className="py-2 px-3 rounded-lg hover:bg-gray-200 transition duration-200 ease-in-out"><Text variant="sm" className="font-bold ">{children}</Text></Link>
+}
 
 export default function MainHeader() {
   return (
@@ -26,7 +32,7 @@ export default function MainHeader() {
           </Text>
         </div>
       </div>
-      <div className="w-full lg:w-[20rem] mt-6 lg:mt-12">
+      <div className="w-[18rem] lg:w-[20rem] mt-6 lg:mt-12">
         <Text as="p" variant="sm" className="text-gray-500 italic">
           Fala mané eu sou a melhor do mundo e vou ensinar minhas manhas
         </Text>
@@ -34,6 +40,11 @@ export default function MainHeader() {
           Pode me chamar de mita!
         </Text>
       </div>
+      <nav className="flex gap-2 w-[18rem] lg:w-[20rem] mt-6 ">
+        <NavigatorItem href="/">Home</NavigatorItem>
+        <NavigatorItem href="/blog">Blog</NavigatorItem>
+        
+      </nav>
     </header>
   );
 }
