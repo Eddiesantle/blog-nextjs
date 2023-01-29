@@ -50,7 +50,7 @@ export default async function Home() {
   }
 
   return (
-    <article>
+    <article className="w-full lg:w-[50rem]">
       <Text variant="sm" className="text-gray-500">
         {format(lastPost?.created_at, "dd.MM.yyyy")} - Útima Postagem...
       </Text>
