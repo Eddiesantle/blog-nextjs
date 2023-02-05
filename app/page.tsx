@@ -27,6 +27,10 @@ async function getLastPost() {
 
   const [lastPostFromList] = posts;
 
+  if(lastPostFromList == undefined){
+    return null;
+  }
+
   const lastPostResponse = await fetch(
     `${process.env.BLOG_PROVIDER_BASE_API}${postsEndPoint}/${lastPostFromList.slug}`
   );
